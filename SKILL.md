@@ -1,6 +1,6 @@
 ---
 name: gsd
-description: Get Shit Done (GSD) framework for Claude Code. Use for large coding tasks, project planning, and reliable execution.
+description: Get Shit Done (GSD) framework for coding tasks. Use for large features, project planning, and reliable execution.
 metadata:
   {
     "openclaw": { "emoji": "🚀", "requires": { "anyBins": ["get-shit-done-cc"] } },
@@ -9,7 +9,7 @@ metadata:
 
 # GSD (Get Shit Done) Framework
 
-This skill provides a structured workflow wrapper around the `get-shit-done-cc` CLI tool for Claude Code. It enforces rigorous context management and spec-driven development.
+This skill provides a structured workflow wrapper around the `get-shit-done-cc` CLI tool. It enforces rigorous context management and spec-driven development.
 
 ## ⚠️ Prerequisites
 
@@ -17,7 +17,7 @@ This skill provides a structured workflow wrapper around the `get-shit-done-cc` 
    ```bash
    npm install -g get-shit-done-cc
    ```
-2. **Claude Code configured:** Ensure `claude` is authenticated and working.
+2. **Models:** By default, this uses **Gemini 3 Pro** (via local LiteLLM proxy) to save costs.
 
 ## Usage Guide
 
@@ -32,27 +32,27 @@ Use GSD tools when:
 
 ### Tool Definitions
 
-The following tools wrap the GSD CLI commands.
+The following tools wrap the GSD CLI commands with the correct environment variables for Gemini/LiteLLM usage.
 
 #### `gsd_new_project`
 Starts a new project wizard. Use when starting from scratch.
 ```bash
 # Starts interactive wizard
-bash pty:true command:"get-shit-done-cc --new-project"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --new-project"
 ```
 
 #### `gsd_map_codebase`
 Analyzes existing code to generate `ARCHITECTURE.md`, `CONCERNS.md`, etc. Crucial first step for brownfield projects.
 ```bash
 # Analyze current directory
-bash pty:true command:"get-shit-done-cc --map-codebase"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --map-codebase"
 ```
 
 #### `gsd_plan_phase`
 Breaks down the current goal into atomic XML plans (max 3 tasks per plan).
 ```bash
 # Plan the next phase
-bash pty:true command:"get-shit-done-cc --plan-phase"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --plan-phase"
 ```
 
 #### `gsd_execute_phase`
@@ -60,7 +60,7 @@ Executes a planned phase using multi-agent orchestration. Spawns fresh contexts 
 - `phase`: The phase number to execute (e.g., 1).
 ```bash
 # Execute Phase 1
-bash pty:true command:"get-shit-done-cc --execute-phase 1"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --execute-phase 1"
 ```
 
 #### `gsd_verify_work`
@@ -68,7 +68,7 @@ Verifies the implementation against the original specs using a dedicated QA agen
 - `phase`: The phase number to verify (e.g., 1).
 ```bash
 # Verify Phase 1
-bash pty:true command:"get-shit-done-cc --verify-work 1"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --verify-work 1"
 ```
 
 #### `gsd_quick`
@@ -76,7 +76,7 @@ Executes an ad-hoc task with GSD guarantees (context reset) but skips full plann
 - `task`: The task description.
 ```bash
 # Quick fix
-bash pty:true command:"get-shit-done-cc --quick 'Fix the login button overflow'"
+bash pty:true env:{"ANTHROPIC_BASE_URL":"http://localhost:4000/v1","ANTHROPIC_API_KEY":"sk-litellm-vertex-serra-2026","CLAUDE_MODEL":"gemini-3-pro"} command:"get-shit-done-cc --quick 'Fix the login button overflow'"
 ```
 
 ## Best Practices
